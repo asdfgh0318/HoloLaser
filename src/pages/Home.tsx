@@ -15,20 +15,21 @@ export function HomePage() {
         <div className="flex gap-4 justify-center">
           <Link
             to="/simulator"
-            className="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-gray-950 font-semibold rounded-lg transition-colors"
+            className="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-gray-950 font-semibold rounded-lg transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-400"
           >
             Launch Simulator
           </Link>
           <Link
             to="/about"
-            className="px-6 py-3 border border-gray-700 hover:border-gray-500 text-gray-300 font-semibold rounded-lg transition-colors"
+            className="px-6 py-3 border border-gray-700 hover:border-gray-500 text-gray-300 font-semibold rounded-lg transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-400"
           >
             Read the Math
           </Link>
         </div>
       </section>
 
-      <section className="grid md:grid-cols-3 gap-8">
+      <section aria-labelledby="features-heading" className="grid md:grid-cols-3 gap-8">
+        <h2 id="features-heading" className="sr-only">Features</h2>
         <FeatureCard
           title="N-Laser System"
           description="Configure any number of lasers arranged in a circle, each with conical sweep geometry."
@@ -86,9 +87,9 @@ function StepCard({ step, title, description }: { step: number; title: string; d
 
 function FeatureCard({ title, description }: { title: string; description: string }) {
   return (
-    <div className="p-6 rounded-xl border border-gray-800 bg-gray-900/50">
+    <article className="p-6 rounded-xl border border-gray-800 bg-gray-900/50">
       <h3 className="text-lg font-semibold text-cyan-300 mb-2">{title}</h3>
       <p className="text-gray-400 text-sm">{description}</p>
-    </div>
+    </article>
   );
 }

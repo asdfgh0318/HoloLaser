@@ -13,7 +13,10 @@ export function Navbar() {
     <nav className="border-b border-gray-800 bg-gray-950/80 backdrop-blur-sm" role="navigation" aria-label="Main navigation">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="text-xl font-bold tracking-tight text-cyan-400">
+          <Link
+            to="/"
+            className="text-xl font-bold tracking-tight text-cyan-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-400 rounded"
+          >
             HoloLaser
           </Link>
           <div className="flex gap-1">
@@ -21,7 +24,7 @@ export function Navbar() {
               <Link
                 key={to}
                 to={to}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-400 ${
                   location.pathname === to
                     ? 'bg-cyan-500/20 text-cyan-300'
                     : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'

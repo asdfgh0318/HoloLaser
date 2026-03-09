@@ -81,7 +81,7 @@ export function SimulatorPage() {
             </Scene>
           </div>
 
-          <aside className="space-y-6" aria-label="Simulation controls">
+          <aside className="space-y-6" aria-label="Simulation parameters">
             {/* Parameters */}
             <div className="p-4 rounded-xl border border-gray-800 bg-gray-900/50">
               <h2 className="text-sm font-semibold text-gray-300 mb-3">Parameters</h2>
