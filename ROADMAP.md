@@ -1,49 +1,49 @@
 # HoloLaser Roadmap
 
-## Phase 1: Foundation (Current)
+## Phase 1: Foundation
 - [x] Project scaffolding (Vite + React + TypeScript)
 - [x] Project infrastructure (CLAUDE.md, CONTRIBUTIONS_GUIDELINES.md, ROADMAP.md)
-- [ ] GitHub issues created for all workstreams
+- [x] GitHub issues created for all workstreams
 
-## Phase 2: Core Implementation (Parallel Workstreams)
+## Phase 2: Core Implementation (All Merged)
 
-### Math/Model Team
-- [ ] Implement voxelization of 3D models (STL -> voxel grid)
-- [ ] Implement forward Radon transform (voxels -> projections)
-- [ ] Implement inverse Radon transform (filtered back-projection)
-- [ ] Implement iterative reconstruction (SIRT/ART) for mask optimization
-- [ ] Unit tests for all math functions
+### Math/Model Team (PR #6, Issue #1)
+- [x] Implement voxelization of 3D models (STL -> voxel grid)
+- [x] Implement forward Radon transform (voxels -> projections)
+- [x] Implement inverse Radon transform (filtered back-projection)
+- [x] Unit tests for all math functions (22 tests passing)
 
-### Frontend Team
-- [ ] Three.js scene setup with orbit controls
-- [ ] 3D voxel grid visualization
-- [ ] Laser cone visualization (N lasers around circle)
-- [ ] Projection mask visualization (2D per laser)
-- [ ] STL file upload and preview
-- [ ] Interactive parameter controls (N lasers, grid size, etc.)
+### Frontend Team (PR #7, Issue #2)
+- [x] Three.js scene setup with orbit controls
+- [x] 3D voxel grid visualization (instanced meshes)
+- [x] Laser cone visualization (N lasers around circle)
+- [x] Projection mask visualization (2D per laser)
+- [x] STL wireframe preview
 
-### Backend/State Team
-- [ ] Zustand store for simulation state
-- [ ] Web Worker for heavy math computation
-- [ ] STL file parsing pipeline
-- [ ] Simulation orchestration (load -> voxelize -> compute masks -> visualize)
+### Backend/State Team (PR #8, Issue #3)
+- [x] Zustand store for simulation state with progress tracking
+- [x] Web Worker for heavy math computation
+- [x] STL file parsing pipeline (binary + ASCII)
+- [x] Simulation orchestration hook
 
-### UX Team
-- [ ] App layout with navigation (Home, Simulator, About)
-- [ ] Home page with project overview
-- [ ] About page with LaTeX math explanation
-- [ ] Responsive design and theming
-- [ ] Loading states and progress indicators
+### UX Team (PR #9, Issue #4)
+- [x] Parameter controls (sliders for all simulation params)
+- [x] Built-in shape selector (Cube, Sphere, Torus)
+- [x] STL drag-and-drop upload
+- [x] Progress bar for computation
+- [x] About page with full LaTeX math derivation (KaTeX)
+- [x] Home page with "How it works" section
 
-### Accessibility Team
-- [ ] WCAG 2.1 AA audit
-- [ ] Keyboard navigation for all interactive elements
-- [ ] Screen reader support and ARIA labels
-- [ ] Color contrast compliance
-- [ ] Focus management
+### Accessibility Team (PR #10, Issue #5)
+- [x] Skip navigation link
+- [x] Keyboard navigation with visible focus indicators
+- [x] Screen reader support (ARIA labels, live regions)
+- [x] Color contrast fixes (WCAG AA)
+- [x] Semantic HTML structure
 
-## Phase 3: Integration & Polish
-- [ ] Merge all workstreams
-- [ ] End-to-end testing
-- [ ] Performance optimization
-- [ ] Documentation
+## Phase 3: Future Enhancements
+- [ ] Iterative reconstruction (SIRT/ART) for better mask quality
+- [ ] Performance optimization (code splitting, Web Worker pooling)
+- [ ] Export masks as images
+- [ ] Comparison view (target vs reconstructed)
+- [ ] Animation of laser sweep
