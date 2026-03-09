@@ -18,10 +18,11 @@ export function VoxelCloud({ voxels, color = '#06b6d4', opacity = 0.8 }: VoxelCl
     const { data, size } = voxels;
     const halfSize = size / 2;
 
-    for (let z = 0; z < size; z++) {
-      for (let y = 0; y < size; y++) {
+    // Math engine indexing: data[x + z*size + y*size*size]
+    for (let y = 0; y < size; y++) {
+      for (let z = 0; z < size; z++) {
         for (let x = 0; x < size; x++) {
-          const index = z * size * size + y * size + x;
+          const index = x + z * size + y * size * size;
           const value = data[index];
           if (value > 0.5) {
             result.push({

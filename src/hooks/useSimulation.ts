@@ -232,12 +232,14 @@ export function useSimulation(): UseSimulationReturn {
     state.setProgress(0);
     state.setErrorMessage(null);
 
+    // Send a copy of voxel data since buffers may have been transferred
+    const dataCopy = new Float32Array(voxelData.data);
     worker.postMessage({
       type: 'compute-masks',
-      voxelData: voxelData.data,
+      voxelData: dataCopy,
       gridSize: voxelData.size,
       laserCount: state.params.laserCount,
-    });
+    }, [dataCopy.buffer]);
   }, [store]);
 
   const reconstruct = useCallback((): void => {

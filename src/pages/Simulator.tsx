@@ -18,11 +18,14 @@ export function SimulatorPage() {
   const result = useSimulationStore((s) => s.result);
   const errorMessage = useSimulationStore((s) => s.errorMessage);
 
+  const voxelData = useSimulationStore((s) => s.voxelData);
+
   const { loadSTL, loadShape, computeMasks, reset } = useSimulation();
 
   const [selectedShape, setSelectedShape] = useState<string | undefined>();
 
-  const displayVoxels = result?.reconstructedVoxels ?? result?.targetVoxels ?? null;
+  // Show reconstructed voxels if available, otherwise the raw voxelized target
+  const displayVoxels = result?.reconstructedVoxels ?? result?.targetVoxels ?? voxelData ?? null;
   const stlGeometry = null; // Will be set when STL geometry preview is implemented
   const computing = status === 'computing' || status === 'voxelizing' || status === 'loading';
 

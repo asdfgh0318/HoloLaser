@@ -24,22 +24,20 @@ export function LaserCones({ count, radius, coneAngle, height = 1.5 }: LaserCone
 
       const position = new THREE.Vector3(x, 0, z);
 
-      // The cone geometry points along +Y by default with tip at top.
-      // We need to rotate it so the tip is at the laser position
-      // and the base points toward center (0,0,0).
-      const directionToCenter = new THREE.Vector3(-x, 0, -z).normalize();
+      // ConeGeometry tip is at +Y (local), base at -Y.
+      // We want the tip at the laser position (perimeter) and the base toward center.
+      // So +Y (tip) should point AWAY from center.
+      const directionFromCenter = new THREE.Vector3(x, 0, z).normalize();
 
-      // Build a quaternion that rotates from default cone axis (+Y) to our desired direction
       const quaternion = new THREE.Quaternion();
       const defaultAxis = new THREE.Vector3(0, 1, 0);
-      quaternion.setFromUnitVectors(defaultAxis, directionToCenter);
+      quaternion.setFromUnitVectors(defaultAxis, directionFromCenter);
       const euler = new THREE.Euler().setFromQuaternion(quaternion);
 
-      // Offset position: move tip to laser pos, cone extends toward center
-      // The cone geometry center is at origin, tip is at +height/2
-      // After rotation, we need the tip at (x, 0, z) so shift by half height along direction
-      const tipOffset = directionToCenter.clone().multiplyScalar(-height / 2);
-      const adjustedPos = position.clone().add(tipOffset);
+      // Position so the tip (+height/2 along direction) lands at the laser pos.
+      const adjustedPos = position.clone().add(
+        directionFromCenter.clone().multiplyScalar(-height / 2)
+      );
 
       result.push({
         position: adjustedPos,
