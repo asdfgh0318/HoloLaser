@@ -6,9 +6,11 @@ interface VoxelCloudProps {
   voxels: VoxelGrid | null;
   color?: string;
   opacity?: number;
+  /** Scale factor applied to voxel positions (default 1) */
+  scale?: number;
 }
 
-export function VoxelCloud({ voxels, color = '#06b6d4', opacity = 0.8 }: VoxelCloudProps) {
+export function VoxelCloud({ voxels, color = '#06b6d4', opacity = 0.8, scale = 1 }: VoxelCloudProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
 
   const activeVoxels = useMemo(() => {
@@ -17,6 +19,7 @@ export function VoxelCloud({ voxels, color = '#06b6d4', opacity = 0.8 }: VoxelCl
     const result: { position: [number, number, number]; value: number }[] = [];
     const { data, size } = voxels;
     const halfSize = size / 2;
+    const res = voxels.resolution * scale;
 
     // Math engine indexing: data[x + z*size + y*size*size]
     for (let y = 0; y < size; y++) {
@@ -27,9 +30,9 @@ export function VoxelCloud({ voxels, color = '#06b6d4', opacity = 0.8 }: VoxelCl
           if (value > 0.5) {
             result.push({
               position: [
-                (x - halfSize + 0.5) * voxels.resolution,
-                (y - halfSize + 0.5) * voxels.resolution,
-                (z - halfSize + 0.5) * voxels.resolution,
+                (x - halfSize + 0.5) * res,
+                (y - halfSize + 0.5) * res,
+                (z - halfSize + 0.5) * res,
               ],
               value,
             });
@@ -39,7 +42,7 @@ export function VoxelCloud({ voxels, color = '#06b6d4', opacity = 0.8 }: VoxelCl
     }
 
     return result;
-  }, [voxels]);
+  }, [voxels, scale]);
 
   const baseColor = useMemo(() => new THREE.Color(color), [color]);
 
@@ -70,7 +73,7 @@ export function VoxelCloud({ voxels, color = '#06b6d4', opacity = 0.8 }: VoxelCl
     return null;
   }
 
-  const voxelSize = voxels.resolution * 0.9;
+  const voxelSize = voxels.resolution * scale * 0.9;
 
   return (
     <instancedMesh

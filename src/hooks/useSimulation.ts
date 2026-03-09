@@ -103,6 +103,9 @@ export function useSimulation(): UseSimulationReturn {
             resolution: 2 / msg.size, // grid spans [-1,1], so voxel size = 2/N
           };
           store.getState().setVoxelData(voxelGrid);
+          // Clear previous result so target model shows fresh
+          store.getState().setResult(null);
+          store.getState().setMasks(null);
           store.getState().setStatus('done');
           store.getState().setProgress(100);
           break;

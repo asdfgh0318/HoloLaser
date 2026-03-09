@@ -88,6 +88,18 @@ self.onmessage = (event: MessageEvent<WorkerInput>) => {
 
         send({ type: 'progress', stage: 'computing', percent: 90 });
 
+        // Normalize reconstruction for display (threshold at 50% of max)
+        let maxVal = 0;
+        for (let i = 0; i < reconstructed.data.length; i++) {
+          if (reconstructed.data[i] > maxVal) maxVal = reconstructed.data[i];
+        }
+        if (maxVal > 0) {
+          const threshold = maxVal * 0.5;
+          for (let i = 0; i < reconstructed.data.length; i++) {
+            reconstructed.data[i] = reconstructed.data[i] >= threshold ? 1.0 : 0.0;
+          }
+        }
+
         // Send masks
         send({
           type: 'masks',
