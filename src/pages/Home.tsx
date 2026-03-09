@@ -42,7 +42,45 @@ export function HomePage() {
           description="Load any 3D model as an STL file and voxelize it as the target shape for projection."
         />
       </section>
+
+      <section aria-labelledby="how-heading" className="mt-16">
+        <h2
+          id="how-heading"
+          className="text-2xl font-bold text-center mb-8"
+        >
+          How It Works
+        </h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          <StepCard
+            step={1}
+            title="Load a 3D Model"
+            description="Upload an STL file or pick a built-in shape (cube, sphere, torus) to use as the projection target."
+          />
+          <StepCard
+            step={2}
+            title="Configure Parameters"
+            description="Set the number of lasers, grid resolution, circle radius, cone angle, and iteration count."
+          />
+          <StepCard
+            step={3}
+            title="Compute & Visualize"
+            description="Run the inverse Radon transform to generate masks and view the reconstructed 3D volume in real time."
+          />
+        </div>
+      </section>
     </div>
+  );
+}
+
+function StepCard({ step, title, description }: { step: number; title: string; description: string }) {
+  return (
+    <article className="p-6 rounded-xl border border-gray-800 bg-gray-900/50 relative">
+      <span className="absolute -top-3 -left-3 flex h-8 w-8 items-center justify-center rounded-full bg-cyan-500 text-sm font-bold text-gray-950">
+        {step}
+      </span>
+      <h3 className="text-lg font-semibold text-gray-100 mb-2">{title}</h3>
+      <p className="text-gray-400 text-sm">{description}</p>
+    </article>
   );
 }
 
